@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate War Strategy - Battle for Supremacy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="screen">
+        <div class="loading-container">
+            <h1 class="game-title">ULTIMATE WAR STRATEGY</h1>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">Initializing War Machine...</p>
+        </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="mainMenu" class="screen hidden">
+        <div class="menu-background"></div>
+        <div class="menu-container">
+            <h1 class="game-title-main">ULTIMATE WAR STRATEGY</h1>
+            <p class="game-subtitle">Command. Conquer. Dominate.</p>
+            
+            <div class="menu-buttons">
+                <button class="menu-btn primary" onclick="showGameSetup()">🎮 NEW CAMPAIGN</button>
+                <button class="menu-btn" onclick="showMultiplayer()">🌐 MULTIPLAYER</button>
+                <button class="menu-btn" onclick="showDailyChallenges()">⚡ DAILY CHALLENGES</button>
+                <button class="menu-btn" onclick="showLoadGame()">📂 LOAD GAME</button>
+                <button class="menu-btn" onclick="showSettings()">⚙️ SETTINGS</button>
+                <button class="menu-btn" onclick="showCredits()">👑 LEADERBOARD</button>
+                <button class="menu-btn danger" onclick="exitGame()">❌ EXIT</button>
+            </div>
+            
+            <div class="version-info">v1.0.0 - The Ultimate Edition</div>
+        </div>
+    </div>
+
+    <!-- Game Setup Screen -->
+    <div id="gameSetup" class="screen hidden">
+        <div class="setup-container">
+            <h2 class="section-title">⚔️ BATTLE CONFIGURATION</h2>
+            
+            <div class="setup-grid">
+                <!-- Faction Selection -->
+                <div class="setup-section">
+                    <h3>Choose Your Faction</h3>
+                    <div class="faction-grid">
+                        <div class="faction-card selected" data-faction="TERRAN_FEDERATION">
+                            <div class="faction-flag">🛡️</div>
+                            <h4>Terran Federation</h4>
+                            <p>Advanced tech & diplomacy</p>
+                            <div class="faction-bonuses">
+                                <span class="bonus">+20% Research</span>
+                                <span class="bonus">+15% Diplomacy</span>
+                            </div>
+                        </div>
+                        
+                        <div class="faction-card" data-faction="CRIMSON_EMPIRE">
+                            <div class="faction-flag">⚔️</div>
+                            <h4>Crimson Empire</h4>
+                            <p>Military supremacy</p>
+                            <div class="faction-bonuses">
+                                <span class="bonus">+25% Attack</span>
+                                <span class="bonus">+30% Unit Production</span>
+                            </div>
+                        </div>
+                        
+                        <div class="faction-card" data-faction="AZURE_SYNDICATE">
+                            <div class="faction-flag">💎</div>
+                            <h4>Azure Syndicate</h4>
+                            <p>Economic powerhouse</p>
+                            <div class="faction-bonuses">
+                                <span class="bonus">+50% Gold</span>
+                                <span class="bonus">+40% Trade</span>
+                            </div>
+                        </div>
+                        
+                        <div class="faction-card" data-faction="EMERALD_COLLECTIVE">
+                            <div class="faction-flag">🌿</div>
+                            <h4>Emerald Collective</h4>
+                            <p>Cultural dominance</p>
+                            <div class="faction-bonuses">
+                                <span class="bonus">+30% Culture</span>
+                                <span class="bonus">+25% Happiness</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game Settings -->
+                <div class="setup-section">
+                    <h3>Battle Parameters</h3>
+                    <div class="setting-group">
+                        <label>Enemy Factions:</label>
+                        <select id="playerCount">
+                            <option value="2">1v1 Duel</option>
+                            <option value="4" selected>4-Way War</option>
+                            <option value="6">6-Player Chaos</option>
+                            <option value="8">8-Player Apocalypse</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label>World Size:</label>
+                        <select id="mapSize">
+                            <option value="small">Small (30x30)</option>
+                            <option value="medium" selected>Medium (50x50)</option>
+                            <option value="large">Large (80x80)</option>
+                            <option value="huge">Huge (100x100)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label>Difficulty:</label>
+                        <select id="difficulty">
+                            <option value="recruit">Recruit</option>
+                            <option value="veteran" selected>Veteran</option>
+                            <option value="commander">Commander</option>
+                            <option value="legendary">Legendary</option>
+                            <option value="nightmare">Nightmare</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label>Victory Conditions:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" checked> Domination</label>
+                            <label><input type="checkbox" checked> Scientific</label>
+                            <label><input type="checkbox" checked> Cultural</label>
+                            <label><input type="checkbox" checked> Economic</label>
+                            <label><input type="checkbox" checked> Nuclear</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setup-actions">
+                <button class="menu-btn" onclick="showMainMenu()">← Back</button>
+                <button class="menu-btn primary large" onclick="startBattle()">🚀 LAUNCH WAR!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Canvas Container -->
+    <div id="gameContainer" class="screen hidden">
+        <!-- Game canvas will be inserted here by JavaScript -->
+        
+        <!-- Game HUD -->
+        <div id="gameHUD" class="game-hud">
+            <!-- Top Bar -->
+            <div class="hud-top">
+                <div class="player-info">
+                    <div class="player-faction">
+                        <span class="faction-flag">🛡️</span>
+                        <span class="faction-name">Terran Federation</span>
+                    </div>
+                    <div class="turn-info">
+                        <span class="turn-label">Turn:</span>
+                        <span class="turn-number">1</span>
+                        <span class="season">Spring</span>
+                    </div>
+                </div>
+                
+                <div class="resources-bar">
+                    <div class="resource-item">
+                        <span class="resource-icon">💰</span>
+                        <span class="resource-value">1,250</span>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-icon">🏭</span>
+                        <span class="resource-value">340</span>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-icon">🔬</span>
+                        <span class="resource-value">180</span>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-icon">👥</span>
+                        <span class="resource-value">520</span>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-icon">⛽</span>
+                        <span class="resource-value">45</span>
+                    </div>
+                </div>
+                
+                <div class="game-controls">
+                    <button class="hud-btn" onclick="showTechTree()" title="Technology Tree">🔬</button>
+                    <button class="hud-btn" onclick="showDiplomacy()" title="Diplomacy">🤝</button>
+                    <button class="hud-btn" onclick="showEspionage()" title="Espionage">🕵️</button>
+                    <button class="hud-btn" onclick="showEconomy()" title="Economy">📈</button>
+                    <button class="hud-btn" onclick="endTurn()" title="End Turn">⏭️</button>
+                    <button class="hud-btn danger" onclick="showMainMenu()" title="Main Menu">🏠</button>
+                </div>
+            </div>
+            
+            <!-- Side Panel -->
+            <div class="hud-side">
+                <div class="minimap-container">
+                    <div class="minimap-title">Strategic Map</div>
+                    <canvas id="minimap" width="200" height="200"></canvas>
+                </div>
+                
+                <div class="unit-info-panel hidden">
+                    <h4>Unit Information</h4>
+                    <div class="unit-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Health:</span>
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Movement:</span>
+                            <span class="stat-value">2/3</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Experience:</span>
+                            <span class="stat-value">⭐⭐⭐</span>
+                        </div>
+                    </div>
+                    <div class="unit-actions">
+                        <button class="action-btn">🎯 Attack</button>
+                        <button class="action-btn">🏃 Move</button>
+                        <button class="action-btn">🛡️ Defend</button>
+                        <button class="action-btn">🔧 Upgrade</button>
+                    </div>
+                </div>
+                
+                <div class="notifications-panel">
+                    <h4>Battle Reports</h4>
+                    <div class="notification-list">
+                        <div class="notification success">
+                            ⚔️ Infantry unit victorious in battle!
+                        </div>
+                        <div class="notification warning">
+                            🏭 Production decreased due to supply shortage
+                        </div>
+                        <div class="notification info">
+                            🔬 Research completed: Advanced Metallurgy
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="hud-bottom">
+                <div class="weather-info">
+                    <span class="weather-icon">☀️</span>
+                    <span class="weather-text">Clear Skies</span>
+                </div>
+                
+                <div class="actions-bar">
+                    <button class="action-btn-large" onclick="buildUnit()">🏗️ Build Unit</button>
+                    <button class="action-btn-large" onclick="buildCity()">🏙️ Found City</button>
+                    <button class="action-btn-large" onclick="declareWar()">⚔️ Declare War</button>
+                    <button class="action-btn-large nuclear" onclick="launchNuke()">☢️ Nuclear Strike</button>
+                </div>
+                
+                <div class="global-status">
+                    <div class="status-item">
+                        <span class="status-label">Defcon:</span>
+                        <span class="defcon-level defcon-3">3</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">World Tension:</span>
+                        <div class="tension-bar">
+                            <div class="tension-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Dialogs -->
+    <div id="modalOverlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Title</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Content goes here...
+            </div>
+            <div class="modal-footer">
+                <button class="menu-btn" onclick="closeModal()">Cancel</button>
+                <button class="menu-btn primary" onclick="confirmModal()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Notification -->
+    <div id="achievementNotification" class="achievement-popup hidden">
+        <div class="achievement-content">
+            <div class="achievement-icon">🏆</div>
+            <div class="achievement-info">
+                <div class="achievement-title">Achievement Unlocked!</div>
+                <div class="achievement-description">First Victory</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="bgMusic" loop>
+        <source src="assets/audio/epic_war_theme.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="sfxBattle">
+        <source src="assets/audio/battle_sounds.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Scripts -->
+    <script src="game.js"></script>
+    <script>
+        // Initialize the game
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeGame();
+        });
+
+        function initializeGame() {
+            // Show loading screen and initialize game systems
+            setTimeout(() => {
+                hideElement('loadingScreen');
+                showElement('mainMenu');
+                playBackgroundMusic();
+            }, 3000);
+        }
+
+        // UI Helper Functions
+        function showElement(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function hideElement(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function showGameSetup() {
+            hideElement('mainMenu');
+            showElement('gameSetup');
+        }
+
+        function showMainMenu() {
+            hideElement('gameSetup');
+            hideElement('gameContainer');
+            showElement('mainMenu');
+        }
+
+        function startBattle() {
+            hideElement('gameSetup');
+            showElement('gameContainer');
+            
+            // Initialize the main game
+            const game = new AdvancedWarGame();
+            const config = {
+                players: parseInt(document.getElementById('playerCount').value),
+                mapSize: { width: 50, height: 50 },
+                gameMode: 'standard',
+                difficulty: document.getElementById('difficulty').value,
+                factions: ['TERRAN_FEDERATION', 'CRIMSON_EMPIRE', 'AZURE_SYNDICATE', 'EMERALD_COLLECTIVE']
+            };
+            game.createGame(config);
+        }
+
+        function playBackgroundMusic() {
+            const music = document.getElementById('bgMusic');
+            music.volume = 0.3;
+            music.play().catch(e => console.log('Audio autoplay blocked'));
+        }
+
+        // Faction selection
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.faction-card')) {
+                document.querySelectorAll('.faction-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                e.target.closest('.faction-card').classList.add('selected');
+            }
+        });
+
+        // Modal functions
+        function showModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = content;
+            showElement('modalOverlay');
+        }
+
+        function closeModal() {
+            hideElement('modalOverlay');
+        }
+
+        function showAchievement(title, description) {
+            const popup = document.getElementById('achievementNotification');
+            popup.querySelector('.achievement-title').textContent = title;
+            popup.querySelector('.achievement-description').textContent = description;
+            popup.classList.remove('hidden');
+            
+            setTimeout(() => {
+                popup.classList.add('hidden');
+            }, 4000);
+        }
+
+        // Additional UI functions (implement as needed)
+        function showTechTree() { showModal('Technology Tree', '<p>Research advanced technologies to gain strategic advantages!</p>'); }
+        function showDiplomacy() { showModal('Diplomacy', '<p>Negotiate treaties and alliances with other factions.</p>'); }
+        function showEspionage() { showModal('Espionage', '<p>Deploy spies to gather intelligence and sabotage enemies.</p>'); }
+        function showEconomy() { showModal('Economy', '<p>Manage your resources and trade routes.</p>'); }
+        function showMultiplayer() { showModal('Multiplayer', '<p>Join online battles against players worldwide!</p>'); }
+        function showDailyChallenges() { showModal('Daily Challenges', '<p>Complete special missions for exclusive rewards!</p>'); }
+        function showLoadGame() { showModal('Load Game', '<p>Resume your conquest from a saved state.</p>'); }
+        function showSettings() { showModal('Settings', '<p>Configure audio, graphics, and game options.</p>'); }
+        function showCredits() { showModal('Leaderboard', '<p>Top commanders and their greatest victories!</p>'); }
+        function exitGame() { if (confirm('Are you sure you want to exit?')) window.close(); }
+    </script>
+</body>
+</html>
